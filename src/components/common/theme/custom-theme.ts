@@ -18,7 +18,10 @@ export const theme = createTheme({
     background: {
       default: '#edf6f9',
       paper: '#ffddd2'
-    }
+    },
+  },
+  typography: {
+    fontFamily: 'Raleway, sans-serif',
   }
 });
 
