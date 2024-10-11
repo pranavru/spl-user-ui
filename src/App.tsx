@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css'
+import { Header } from "./components/common/app/header";
+import { CustomTheme } from "./components/common/theme";
 
-function App() {
+const App = () => {
   return (
-    <React.Fragment>
-      <h1>SPL APP UI</h1>
-    </React.Fragment>
+    <CustomTheme>
+      <Header />
+    </CustomTheme>
   );
 }
 
