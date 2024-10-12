@@ -5,15 +5,16 @@ export const theme = createTheme({
     mode: 'light',
     primary: {
       main: '#e29578',
-      contrastText: '#ffddd2',
+      light: '#ffddd2',
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#006d77',
-      contrastText: '#83c5be'
+      light: '#83c5be',
     },
     text: {
-      primary: '#000000',
-      secondary: '#ffffff'
+      primary: '#555555',
+      secondary: '#444444'
     },
     background: {
       default: '#edf6f9',

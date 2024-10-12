@@ -93,7 +93,7 @@ export const Header = () => {
               <Button
                 key={route.path}
                 href={route.path}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ p: 0, color: 'white', display: 'block', alignItems: 'baseline end' }}
               >
                 {route.name}
               </Button>
