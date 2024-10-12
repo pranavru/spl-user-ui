@@ -1,9 +1,7 @@
-import { Typography } from '@mui/material';
+import { PageHeader } from '../common/components/page-header';
 
 export const LandingPage = () => {
   return (
-    <Typography variant={'h4'}>
-      {'Landing Page'}
-    </Typography>
+    <PageHeader title="Landing Page" isBreadcrumbVisible={false}/>
   );
 };

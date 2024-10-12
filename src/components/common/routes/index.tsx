@@ -13,7 +13,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<LandingPage />} />
-      {pageRoutes.map((route) => <Route path={route.path} element={route.element} /> )}
+      {pageRoutes.map((route) => <Route key={route.path} path={route.path} element={route.element} /> )}
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
