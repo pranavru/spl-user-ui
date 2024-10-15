@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import { People, Error as ErrorIcon } from '@mui/icons-material';
 import { FullPageLoader } from '../common/components/full-page-loader';
 import { initialUsersPage } from './literals';
@@ -10,7 +10,9 @@ interface ComponentProps {
   children: React.ReactNode;
 }
 
-export const DataProvider = (props: ComponentProps) => {
+export const UserContext = createContext<UsersPage>(initialUsersPage);
+
+const DataProvider = (props: ComponentProps) => {
   const [userData, setUserData] = React.useState<UsersPage>(initialUsersPage);
 
   const fetchUsers = async () => { 
@@ -62,5 +64,11 @@ export const DataProvider = (props: ComponentProps) => {
     );
   }
 
-  return props.children;
+  return (
+    <UserContext.Provider value={userData}>
+      {props.children}
+    </UserContext.Provider>
+  )
 }
+
+export default DataProvider;
