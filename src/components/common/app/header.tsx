@@ -34,7 +34,7 @@ export const Header = () => {
               textDecoration: 'none',
             }}
           >
-            {'Samanvay Users'}
+            {'Samanvay Admin'}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -86,14 +86,14 @@ export const Header = () => {
               textDecoration: 'none',
             }}
           >
-            {'Samanvay Users'}
+            {'Samanvay Admin'}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: '5px' }}>
             {pageRoutes.map((route) => (
               <Button
                 key={route.path}
                 href={route.path}
-                sx={{ p: 0, color: 'white', display: 'block', alignItems: 'baseline end' }}
+                sx={{ p: 0, color: 'white', display: 'flex', alignItems: 'baseline end' }}
               >
                 {route.name}
               </Button>
