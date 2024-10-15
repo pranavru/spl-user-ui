@@ -1,9 +1,7 @@
-import { Box, Container } from "@mui/material"
-import { localUserDB } from "./local-db";
-import { CustomDataGrid } from "../common/components/data-grid";
-import { columns } from "./columns";
+import { Container } from "@mui/material"
 import { PageHeader } from "../common/components/page-header";
-import { DataProvider } from "./data-provider";
+import { UsersList } from "./views/users-list";
+import DataProvider from "./data-provider";
 
 export const Users = () => (
   <DataProvider>
@@ -12,12 +10,7 @@ export const Users = () => (
         title="Users"
         isBreadcrumbVisible={true} 
       />
-      <Box sx={{ height: 400, width: '100%', mt: 2, mb: 2 }}>
-        <CustomDataGrid
-          columns={columns} 
-          rows={localUserDB}
-        />
-      </Box>
+      <UsersList/>
     </Container>
   </DataProvider>
 );

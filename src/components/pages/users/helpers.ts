@@ -8,5 +8,6 @@ export const formatDate = (date: string) => {
     second: 'numeric' 
   };
 
+  console.log('new Date(date)', new Date(date))
   return new Date(date).toLocaleDateString('en-US', options);
 };

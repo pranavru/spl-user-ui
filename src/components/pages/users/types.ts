@@ -1,6 +1,6 @@
 export type Role = {
   id: number;
-  name: string;
+  role: string;
   description: string;
 }
 
@@ -10,7 +10,7 @@ export type User = {
   email: string;
   phone: string;
   isActive: boolean;
-  role: Role[];
+  role: Role;
   createdAt: string;
   updatedAt: string;
   address: { 
@@ -18,14 +18,14 @@ export type User = {
     addressLine2: string;
     city: string;
     state: string;
-    zipcode: string;
+    postalCode: string;
     country: string;
-    geo: {
+    geo?: {
       lat: string;
       lng: string;
     }
   },
-  followUp: {
+  followUp?: {
     primary: string;
     secondary: string;
   },
