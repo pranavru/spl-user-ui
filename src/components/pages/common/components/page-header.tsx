@@ -16,8 +16,7 @@ export const PageHeader = (props: ComponentProps) => {
           <Link to="/" color="secondary">
             {'Home'}
           </Link>
-          )
-        }
+        )}
         <Typography variant={'h4'}>
           {props.title}
         </Typography>
