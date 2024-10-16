@@ -1,9 +1,4 @@
-export type Modal = {
-  title: string;
-  description: string;
-  onConfirm: () => void;
-  onCancel: () => void;
-}
+import { Modal } from "../common/types";
 
 export type Zone = {
   id: number;

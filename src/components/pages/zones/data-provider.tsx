@@ -2,11 +2,12 @@ import React, { createContext } from 'react'
 import { Error as ErrorIcon } from '@mui/icons-material';
 import { FullPageLoader } from '../common/components/full-page-loader';
 import { useToast } from '../common/components/toast-provider';
-import { Modal, Zone, ZonesContextType, ZonesPage } from './types';
+import { Zone, ZonesContextType, ZonesPage } from './types';
 import { fetchData } from '../../common/api-config';
 import { FullPageError } from '../common/components/full-page-error';
 import { initialState } from './literals';
 import { ConfirmModal } from '../common/components/confirm-modal';
+import { Modal } from '../common/types';
 
 interface ComponentProps {
   children: React.ReactNode;
