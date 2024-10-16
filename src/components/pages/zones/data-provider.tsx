@@ -103,10 +103,22 @@ const DataProvider = (props: ComponentProps) => {
     });
 
     try {
-      await fetchData('/zones', {
-        method: 'POST',
-        body: JSON.stringify(zoneData.data.current.filter((zone) => zone.id < 0))
-      });
+      const newZones = zoneData.data.current.filter((zone) => zone.id < 0);
+      const updatedZones = zoneData.data.current.filter((zone) => zone.id >= 0 && zone !== zoneData.data.saved.find((savedZone) => savedZone.id === zone.id));
+      
+      if(newZones.length > 0) {
+        await fetchData('/zones', {
+          method: 'POST',
+          body: JSON.stringify(newZones)
+        });
+      }
+
+      if(updatedZones.length > 0) {
+        await fetchData('/zones', {
+          method: 'PUT',
+          body: JSON.stringify(updatedZones)
+        });
+      }
 
       setZoneData({ 
         ...zoneData, 
@@ -202,7 +214,7 @@ const DataProvider = (props: ComponentProps) => {
     const existingZone = zoneData.data.current.length > 0 ? zoneData.data.current[0] : undefined;
 
     const newZone: Zone = {
-      id: existingZone ? existingZone.id - 1 : -1,
+      id: existingZone && existingZone.id <= 0 ? existingZone.id - 1 : -1,
       name: '',
       location: '',
     };
@@ -226,7 +238,6 @@ const DataProvider = (props: ComponentProps) => {
     addZone
   };
   
-
   return (
     <ZoneContext.Provider value={value}>
       {props.children}

@@ -7,6 +7,7 @@ export const initialState = {
     current: [], 
     saved: [] 
   },
+  zones: [],
   modalData: {
     title: '',
     description: '',

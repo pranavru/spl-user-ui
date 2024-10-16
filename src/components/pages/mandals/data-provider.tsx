@@ -8,6 +8,7 @@ import { initialState } from './literals';
 import { ConfirmModal } from '../common/components/confirm-modal';
 import { useToast } from '../common/components/toast-provider';
 import { Modal } from '../common/types';
+import { Zone } from '../zones/types';
 
 interface ComponentProps {
   children: React.ReactNode;
@@ -45,9 +46,42 @@ const DataProvider = (props: ComponentProps) => {
     }
   }
 
+  const fetchZones = async () => { 
+    setMandalData({ 
+      ...mandalData, 
+      isLoading: true 
+    });
+
+    try {
+      const data = await fetchData('/zones');
+      
+      setMandalData({ 
+        ...mandalData, 
+        zones: data.map((zone: Zone) => ({ 
+          ...zone, 
+          label: `${zone.name} - ${zone.location}`, 
+          value: `${zone.name} - ${zone.location}`
+        })),
+        isLoading: false 
+      });
+    } catch (error) {
+      setMandalData({ 
+        ...mandalData,
+        hasError: true, 
+        isLoading: false 
+      });
+    }
+  }
+
   React.useEffect(() => {
     fetchMandals();
   }, []);
+
+  React.useEffect(() => {
+    if(mandalData.inEditMode) {
+      fetchZones();
+    }
+  }, [mandalData.inEditMode]);
 
   if (mandalData.isLoading) {
     return (
@@ -101,10 +135,22 @@ const DataProvider = (props: ComponentProps) => {
       });
 
       try {
-        await fetchData('/mandals', {
-          method: 'POST',
-          body: JSON.stringify(mandalData.data.current.filter((zone) => zone.id < 0))
-        });
+        const newMandals = mandalData.data.current.filter((mandal) => mandal.id < 0);
+        const updatedMandals = mandalData.data.current.filter((mandal) => mandal.id >= 0 && mandal !== mandalData.data.saved.find((savedMandal) => savedMandal.id === mandal.id));
+        
+        if(newMandals.length > 0) {
+          await fetchData('/mandals', {
+            method: 'POST',
+            body: JSON.stringify(newMandals)
+          });
+        }
+
+        if(updatedMandals.length > 0) {
+          await fetchData('/mandals', {
+            method: 'PUT',
+            body: JSON.stringify(updatedMandals)
+          });
+        }
         
         setMandalData({ 
           ...mandalData, 
@@ -194,9 +240,10 @@ const DataProvider = (props: ComponentProps) => {
       const existingMandal = mandalData.data.current.length > 0 ? mandalData.data.current[0] : undefined;
 
       const newMandal = {
-        id: existingMandal ? existingMandal.id - 1 : -1,
+        id: existingMandal && existingMandal.id > 0 ? existingMandal.id - 1 : -1,
         name: '',
-        location: ''
+        location: '',
+        zone: null
       };
 
       setMandalData({ 
