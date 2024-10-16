@@ -8,6 +8,13 @@ export type Zone = {
 
 export type Zones = Zone[];
 
+export type ZoneOption = Zone & {
+  label: string;
+  value: string;
+}
+
+export type ZoneOptions = ZoneOption[];
+
 export type ZonesPage = {
   isLoading: boolean;
   hasError: boolean;

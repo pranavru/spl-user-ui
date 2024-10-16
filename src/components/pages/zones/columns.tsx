@@ -5,8 +5,8 @@ import { ZoneLocation } from "./views/columns/zone-location";
 import { DeleteZone } from "./views/columns/delete-zone";
 
 export const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 150, renderCell: ColumnTypography},
-  { field: 'location', headerName: 'Description', width: 200, renderCell: ColumnTypography}
+  { field: 'name', headerName: 'Name', flex: 0.5, renderCell: (params) => <ColumnTypography params={params} />},
+  { field: 'location', headerName: 'Description', flex: 0.5, renderCell: (params) => <ColumnTypography params={params} />}
 ];
 
 export const editableColumns: GridColDef[] = [

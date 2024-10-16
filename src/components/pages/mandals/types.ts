@@ -1,9 +1,11 @@
 import { Modal } from "../common/types";
+import { Zone, ZoneOptions } from "../zones/types";
 
 export type Mandal = {
   id: number;
   name: string;
   location: string;
+  zone: Zone | null;
 }
 
 export type Mandals = Mandal[];
@@ -17,6 +19,7 @@ export type MandalsPage = {
     current: Mandals;
     saved: Mandals;
   },
+  zones: ZoneOptions;
   modalData: Modal
 };
 
