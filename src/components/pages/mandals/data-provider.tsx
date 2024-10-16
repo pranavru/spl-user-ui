@@ -1,23 +1,27 @@
 import React, { createContext } from 'react'
 import { Error as ErrorIcon } from '@mui/icons-material';
 import { FullPageLoader } from '../common/components/full-page-loader';
-import { MandalsPage } from './types';
+import { MandalsContextType, MandalsPage } from './types';
 import { fetchData } from '../../common/api-config';
 import { FullPageError } from '../common/components/full-page-error';
 import { initialState } from './literals';
+import { ConfirmModal } from '../common/components/confirm-modal';
+import { useToast } from '../common/components/toast-provider';
+import { Modal } from '../common/types';
 
 interface ComponentProps {
   children: React.ReactNode;
 }
 
-export const MandalContext = createContext<MandalsPage>(initialState);
+export const MandalsContext = createContext<MandalsContextType>(initialState);
 
 const DataProvider = (props: ComponentProps) => {
-  const [zoneData, setMandalData] = React.useState<MandalsPage>(initialState);
+  const [mandalData, setMandalData] = React.useState<MandalsPage>(initialState);
+  const toast = useToast();
 
   const fetchMandals = async () => { 
     setMandalData({ 
-      ...zoneData, 
+      ...mandalData, 
       isLoading: true 
     });
 
@@ -25,13 +29,16 @@ const DataProvider = (props: ComponentProps) => {
       const data = await fetchData('/mandals');
       
       setMandalData({ 
-        ...zoneData, 
-        data, 
+        ...mandalData, 
+        data: {
+          current: data,
+          saved: data
+        }, 
         isLoading: false 
       });
     } catch (error) {
       setMandalData({ 
-        ...zoneData, 
+        ...mandalData, 
         hasError: true, 
         isLoading: false 
       });
@@ -42,31 +49,174 @@ const DataProvider = (props: ComponentProps) => {
     fetchMandals();
   }, []);
 
-  if (zoneData.isLoading) {
+  if (mandalData.isLoading) {
     return (
       <FullPageLoader 
         title="Fetching Mandals" 
         subtitle="Please wait while the mandals are fetched..." 
-        isLoading={zoneData.isLoading} 
+        isLoading={mandalData.isLoading} 
       />
     );
   }
 
-  if (zoneData.hasError && !zoneData.isLoading) {
+  if (mandalData.hasError && !mandalData.isLoading) {
     return (
       <FullPageError
         icon={<ErrorIcon sx={{ fontSize: '10rem' }} color="error" />}
         title="Failed to fetch mandals" 
         subtitle="An error occurred while fetching mandals. Please try again later." 
-        isLoading={zoneData.hasError}
+        isLoading={mandalData.hasError}
       />
     );
   }
 
+  const value: MandalsContextType = {
+    ...mandalData,
+    setMandalsEditable: (isEditable: boolean) => {
+      setMandalData({ 
+        ...mandalData, 
+        inEditMode: isEditable 
+      });
+    },
+    updateMandal: (mandalId: number, updatedMandal) => {
+      const updatedMandals = mandalData.data.current.map((mandal) => {
+        if (mandal.id === mandalId) {
+          return updatedMandal;
+        }
+        return mandal;
+      });
+
+      setMandalData({ 
+        ...mandalData, 
+        data: { 
+          ...mandalData.data, 
+          current: updatedMandals 
+        } 
+      });
+    },
+    saveMandals: async () => {
+      setMandalData({
+        ...mandalData,
+        isLoading: true
+      });
+
+      try {
+        await fetchData('/mandals', {
+          method: 'POST',
+          body: JSON.stringify(mandalData.data.current.filter((zone) => zone.id < 0))
+        });
+        
+        setMandalData({ 
+          ...mandalData, 
+          data: { 
+            ...mandalData.data, 
+            saved: mandalData.data.current 
+          },
+          isLoading: false,
+          inEditMode: false
+        });
+
+        if (toast) {
+          toast('Mandals saved successfully', 'Save Mandals Action', 'success');
+        }
+      } catch (error) {
+        if (toast) {
+          toast('Failed to save mandals', 'Save Mandals Action', 'error');
+        }
+      }
+    },
+    resetMandals: () => {
+      const modalData: Partial<Modal> = {};
+
+      if(mandalData.data.current !== mandalData.data.saved) {
+        modalData.title = 'Reset Mandals';
+        modalData.description = 'You have unsaved changes. Are you sure you want to reset mandals?';
+        modalData.onConfirm = () => {
+          setMandalData({ 
+            ...mandalData, 
+            data: { 
+              ...mandalData.data, 
+              current: mandalData.data.saved 
+            },
+            isModalVisible: false
+          });
+        };
+        modalData.onCancel = () => {
+          setMandalData({ 
+            ...mandalData, 
+            isModalVisible: false 
+          });
+        };
+
+        setMandalData({ 
+          ...mandalData, 
+          isModalVisible: true, 
+          modalData: modalData as Modal
+        });
+      }
+
+      setMandalData({ 
+        ...mandalData, 
+        data: { 
+          ...mandalData.data, 
+          current: mandalData.data.saved 
+        },
+        inEditMode: false
+      });
+    },
+    deleteMandal: async (mandalId: number) => {
+      const updatedMandals = mandalData.data.current.filter((mandal) => mandal.id !== mandalId);
+
+      try {
+        await fetchData(`/mandals/${mandalId}`, {
+          method: 'DELETE'
+        });
+
+        setMandalData({ 
+          ...mandalData, 
+          data: { 
+            ...mandalData.data, 
+            current: updatedMandals,
+            saved: updatedMandals
+          } 
+        });
+
+        if (toast) {
+          toast('Mandal deleted successfully', 'Delete Mandal Action', 'success');
+        }
+      } catch (error) {
+        if (toast) {
+          toast('Failed to delete mandal', 'Delete Mandal Action', 'error');
+        }
+      }
+    },
+    addMandal: () => {
+      const existingMandal = mandalData.data.current.length > 0 ? mandalData.data.current[0] : undefined;
+
+      const newMandal = {
+        id: existingMandal ? existingMandal.id - 1 : -1,
+        name: '',
+        location: ''
+      };
+
+      setMandalData({ 
+        ...mandalData, 
+        data: { 
+          ...mandalData.data, 
+          current: [newMandal, ...mandalData.data.current] 
+        } 
+      });
+    }
+  };
+
   return (
-    <MandalContext.Provider value={zoneData}>
+    <MandalsContext.Provider value={value}>
       {props.children}
-    </MandalContext.Provider>
+      <ConfirmModal
+        open={mandalData.isModalVisible}
+        {...mandalData.modalData}
+      />
+    </MandalsContext.Provider>
   )
 }
 

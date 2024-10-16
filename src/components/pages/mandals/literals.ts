@@ -1,5 +1,22 @@
 export const initialState = {
   isLoading: false,
   hasError: false,
-  data: []
+  inEditMode: false,
+  isModalVisible: false,
+  data: { 
+    current: [], 
+    saved: [] 
+  },
+  modalData: {
+    title: '',
+    description: '',
+    onConfirm: () => {},
+    onCancel: () => {}
+  },
+  setMandalsEditable: () => {},
+  updateMandal: () => {},
+  saveMandals: () => {},
+  resetMandals: () => {},
+  deleteMandal: () => {},
+  addMandal: () => {}
 };
