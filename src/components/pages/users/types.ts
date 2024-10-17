@@ -1,3 +1,5 @@
+import { Mandal } from "../mandals/types";
+
 export type Role = {
   id: number;
   role: string;
@@ -8,9 +10,10 @@ export type User = {
   id: number;
   name: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   isActive: boolean;
-  role: Role;
+  role: Role | null;
+  mandal: Mandal | null;
   createdAt: string;
   updatedAt: string;
   address: { 
@@ -20,14 +23,6 @@ export type User = {
     state: string;
     postalCode: string;
     country: string;
-    geo?: {
-      lat: string;
-      lng: string;
-    }
-  },
-  followUp?: {
-    primary: string;
-    secondary: string;
   },
   dateOfBirth: string;
 };

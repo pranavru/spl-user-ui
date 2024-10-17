@@ -5,7 +5,7 @@ import { User } from '../../users/types';
 export const Roles = (params: GridCellParams<User, any, any, GridTreeNodeWithRender>) => {
   const role = params.row.role;
 
-  return (
+  return role === null ? <Box/> : (
     <Box sx={{ display: 'flex', flexDirection: 'row', gap: '5px', alignItems: 'center', height: '100%', flexWrap: 'wrap', mb: 1 }}>
       <Chip 
         key={role.id} 
