@@ -6,6 +6,12 @@ export type Role = {
   description: string;
 }
 
+export type ReferenceContacts = {
+  id: number;
+  primaryContact: User;
+  secondaryContact: User;
+}
+
 export type User = {
   id: number;
   name: string;
@@ -14,6 +20,7 @@ export type User = {
   isActive: boolean;
   role: Role | null;
   mandal: Mandal | null;
+  referenceContacts: ReferenceContacts | null;
   createdAt: string;
   updatedAt: string;
   address: { 
