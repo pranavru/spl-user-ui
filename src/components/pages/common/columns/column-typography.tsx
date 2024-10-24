@@ -11,10 +11,10 @@ export const ColumnTypography = (props: ColumnTypographyProps) => {
     <Typography 
       variant="body1"
       sx={{ 
-        py: 1,
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'flex-start' 
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        height: '100%'
       }}
     >
       {props.value || props.params.value}

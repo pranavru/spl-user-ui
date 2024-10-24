@@ -7,14 +7,14 @@ interface ComponentProps {
 
 export const ReferenceContactsColumn = (props: ComponentProps) => {
   return props.params.row.referenceContacts !== null ? (
-    <Box>
+    <Box sx={{ display: 'flex', height: '100%', alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'center'}} >
       {props.params.row.referenceContacts.primaryContact !== null ? (
-        <Typography variant="body2" color="primary">
+        <Typography variant="body2" color="primary" fontSize={'large'}>
           {props.params.row.referenceContacts.primaryContact.name}
         </Typography>
       ) : <Box/>}
       {props.params.row.referenceContacts.secondaryContact !== null ? (
-        <Typography variant="body2" color="secondary">
+        <Typography variant="caption" color="secondary">
           {props.params.row.referenceContacts.secondaryContact.name}
         </Typography>
       ) : <Box/>}

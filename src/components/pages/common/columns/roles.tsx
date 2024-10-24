@@ -15,6 +15,7 @@ export const Roles = (params: GridCellParams<User, any, any, GridTreeNodeWithRen
           border: '1px solid',
           borderColor: 'primary.main',
           backgroundColor: 'primary.light',
+          fontWeight: 'bold',
         }}
       />
     </Box>

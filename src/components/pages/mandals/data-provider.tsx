@@ -135,8 +135,17 @@ const DataProvider = (props: ComponentProps) => {
       });
 
       try {
-        const newMandals = mandalData.data.current.filter((mandal) => mandal.id < 0);
-        const updatedMandals = mandalData.data.current.filter((mandal) => mandal.id >= 0 && mandal !== mandalData.data.saved.find((savedMandal) => savedMandal.id === mandal.id));
+        const newMandals = mandalData.data.current
+          .filter((mandal) => mandal.id < 0)
+          .map((mandal) => ({
+            id: mandal.id,
+            name: mandal.name,
+            location: mandal.location,
+            zoneId: mandal.zone?.id
+          }));
+
+        const updatedMandals = mandalData.data.current
+          .filter((mandal) => mandal.id >= 0 && mandal !== mandalData.data.saved.find((savedMandal) => savedMandal.id === mandal.id));
         
         if(newMandals.length > 0) {
           await fetchData('/mandals', {
@@ -240,7 +249,7 @@ const DataProvider = (props: ComponentProps) => {
       const existingMandal = mandalData.data.current.length > 0 ? mandalData.data.current[0] : undefined;
 
       const newMandal = {
-        id: existingMandal && existingMandal.id > 0 ? existingMandal.id - 1 : -1,
+        id: existingMandal && existingMandal.id === 0 ? existingMandal.id - 1 : -1,
         name: '',
         location: '',
         zone: null

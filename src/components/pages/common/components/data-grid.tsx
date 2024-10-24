@@ -1,4 +1,4 @@
-import { DataGrid, GridColumnVisibilityModel, GridToolbar, GridToolbarContainer, GridEventListener } from '@mui/x-data-grid'
+import { DataGrid, GridColumnVisibilityModel, GridToolbar, GridToolbarContainer, GridEventListener, GridToolbarQuickFilter } from '@mui/x-data-grid'
 
 type ComponentProps = {
   columns: any[];
@@ -45,10 +45,11 @@ export const CustomDataGrid = (props: ComponentProps) => {
               sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
-                justifyContent: "flex-end", 
+                justifyContent: "space-between", 
                 width: "100%"
               }}
             >
+              <GridToolbarQuickFilter sx={{ width: '30%' }} variant="standard" color='secondary' />
               <GridToolbar />
             </GridToolbarContainer>
           ),

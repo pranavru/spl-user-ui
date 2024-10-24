@@ -4,6 +4,7 @@ import { Users } from '../../pages/users'
 import { LandingPage } from '../../pages/landing-page'
 import { Zones } from '../../pages/zones'
 import { Mandals } from '../../pages/mandals'
+import { EditUser } from '../../pages/edit-user'
 
 export const pageRoutes = [{
   name: 'Zones',
@@ -24,6 +25,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route path='/' element={<LandingPage />} />
       {pageRoutes.map((route) => <Route key={route.path} path={route.path} element={route.element} /> )}
+      <Route path='/edit-user/:id' element={<EditUser />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

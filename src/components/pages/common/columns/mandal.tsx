@@ -5,19 +5,21 @@ import { Box, Chip, Typography } from '@mui/material';
 export const MandalColumn = (params: GridCellParams<User, any, any, GridTreeNodeWithRender>) => {
   const mandal = params.row.mandal;
   return mandal === null ? <Box/> : (
-    <Box>
-      <Typography variant="subtitle2" color="text.secondary" fontSize={'medium'} sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ p: 0.1, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', height: '100%', flexDirection: 'column' }}>
+      <Typography variant="subtitle2" color="text.secondary" fontSize={'medium'}>
         {mandal.name}
         {mandal.zone !== null ? (
           <Chip
             key={mandal.id} 
             label={mandal.zone.name} 
             size='small' 
+            variant="outlined" 
             sx={{
               ml: 1,
               border: '1px solid',
-              borderColor: 'secondary.main',
-              fontWeight: 'semibold'
+              borderColor: 'secondary.light',
+              fontWeight: 'semibold',
+              color: 'secondary.main',
             }}
           />
         ) : <Box/>}

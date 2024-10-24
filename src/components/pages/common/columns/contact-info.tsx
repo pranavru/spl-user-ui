@@ -3,7 +3,7 @@ import { User } from '../../users/types';
 import { GridCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 
 export const ContactInfo = (params: GridCellParams<User, any, any, GridTreeNodeWithRender>) => (
-  <Box sx={{ display: "flex", flexDirection: "column" }}>
+  <Box sx={{ display: "flex", flexDirection: "column", height: '100%', alignItems: 'flex-start', justifyContent: 'center' }}>
     <Typography 
       variant="body1"
     >

@@ -4,8 +4,9 @@ export const formatDate = (date: string) => {
     month: 'short', 
     day: '2-digit', 
     hour: 'numeric',
-    minute: 'numeric', 
-    second: 'numeric' 
+    minute: 'numeric',
+    hourCycle: 'h12',
+    timeZone: 'America/new_york'
   };
 
   return new Date(date).toLocaleDateString('en-US', options);
