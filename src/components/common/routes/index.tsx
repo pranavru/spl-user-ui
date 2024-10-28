@@ -5,6 +5,7 @@ import { LandingPage } from '../../pages/landing-page'
 import { Zones } from '../../pages/zones'
 import { Mandals } from '../../pages/mandals'
 import { EditUser } from '../../pages/edit-user'
+import { Events } from '../../pages/events'
 
 export const pageRoutes = [{
   name: 'Zones',
@@ -18,6 +19,10 @@ export const pageRoutes = [{
   name: 'Users',
   path: '/users',
   element: <Users />
+}, {
+  name: 'Events',
+  path: '/events',
+  element: <Events />
 }]
 
 export const AppRoutes = () => {
