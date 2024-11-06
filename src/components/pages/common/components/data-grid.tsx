@@ -5,6 +5,8 @@ type ComponentProps = {
   rows: any[];
   isLoading?: boolean;
   columnsVisibility?: GridColumnVisibilityModel;
+  editable?: 'row' | 'cell' | 'none';
+  disableDoubleClick?: boolean;
 };
 
 export const CustomDataGrid = (props: ComponentProps) => {
@@ -18,6 +20,7 @@ export const CustomDataGrid = (props: ComponentProps) => {
     <DataGrid
         onCellKeyDown={handleCellKeyDown}
         disableMultipleRowSelection
+        processRowUpdate={(newRow) => newRow}
         disableRowSelectionOnClick
         columns={props.columns} 
         rows={props.rows}
