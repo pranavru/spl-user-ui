@@ -1,10 +1,9 @@
 import Chip from '@mui/material/Chip';
-import { GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 import { Event } from '../types';
 import { Box } from '@mui/material';
 
 interface StatusColumnProps {
-  params: GridRenderCellParams<Event, any, any, GridTreeNodeWithRender>;
+  status: Event['status'];
 }
 
 export const StatusColumn = (props: StatusColumnProps) => {
@@ -32,10 +31,11 @@ export const StatusColumn = (props: StatusColumnProps) => {
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', height: '30px' }}>
       <Chip
-        label={content[props.params.row.status].label}
-        color={content[props.params.row.status].color as 'default' | 'success' | 'warning' | 'info' | 'error' | 'secondary' | 'primary'}
+        size='small'
+        label={content[props.status].label}
+        color={content[props.status].color as 'default' | 'success' | 'warning' | 'info' | 'error' | 'secondary' | 'primary'}
       />
     </Box>
   );
