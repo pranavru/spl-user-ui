@@ -19,7 +19,8 @@ export const fetchData = async (path: string, options?: RequestInit) => {
     const response = await fetch(`${BASE_URL}${path}`, {
       method: 'GET', 
       headers: { 
-        'Content-Type': 'application/json' 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcnVwYXJlbCIsImlhdCI6MTczMDk5ODI1NSwiZXhwIjoxNzMxMTA2MjU1fQ.doRFyEe_rvLw5xhW4H-CXDDNkoBtXxSW6AC8rm4GLWI`,
       },
       ...options
     });
