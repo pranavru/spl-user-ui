@@ -20,7 +20,7 @@ export const fetchData = async (path: string, options?: RequestInit) => {
       method: 'GET', 
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcnVwYXJlbCIsImlhdCI6MTczMDk5ODI1NSwiZXhwIjoxNzMxMTA2MjU1fQ.doRFyEe_rvLw5xhW4H-CXDDNkoBtXxSW6AC8rm4GLWI`,
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdGFsZWthciIsImlhdCI6MTczMjE0NzU3NCwiZXhwIjoxNzMyMjU1NTc0fQ.UEWeZrouD31AFId7SyWaxf11uNZSr_0g8sHBuEU4Gas`,
       },
       ...options
     });
