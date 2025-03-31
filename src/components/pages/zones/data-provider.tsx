@@ -26,13 +26,13 @@ const DataProvider = (props: ComponentProps) => {
     });
 
     try {
-      const data = await fetchData('/zones');
+      const response = await fetchData('/zones');
       
       setZoneData({ 
         ...zoneData, 
         data: { 
-          current: data, 
-          saved: data 
+          current: response.data, 
+          saved: response.data 
         }, 
         isLoading: false 
       });
@@ -77,15 +77,8 @@ const DataProvider = (props: ComponentProps) => {
     });
   }
 
-  const updateZone = (zoneId: number, updatedZone: Zone) => {
-    const updatedZones = zoneData.data.current.map((zone) => {
-      if (zone.id === zoneId) {
-
-        return updatedZone;
-      }
-
-      return zone;
-    });
+  const updateZone = (zoneId: string, updatedZone: Zone) => {
+    const updatedZones = zoneData.data.current.map((zone) => zone.id === zoneId ? updatedZone : zone);
 
     setZoneData({ 
       ...zoneData, 
@@ -103,8 +96,21 @@ const DataProvider = (props: ComponentProps) => {
     });
 
     try {
-      const newZones = zoneData.data.current.filter((zone) => zone.id < 0);
-      const updatedZones = zoneData.data.current.filter((zone) => zone.id >= 0 && zone !== zoneData.data.saved.find((savedZone) => savedZone.id === zone.id));
+      const newZones = zoneData.data.current.filter((zone) => zone.id === 'new').map((zone) => ({
+        name: zone.name,
+        description: zone.description,
+        region: zone.region,        
+      }));
+      const updatedZones = zoneData.data.current
+        .filter((zone) => zone.id !== 'new' && zone !== zoneData.data.saved.find((savedZone) => savedZone.id === zone.id))
+        .map((zone) => ({
+          id: zone.id,
+          name: zone.name,
+          description: zone.description,
+          region: zone.region,
+          coordinator: zone.coordinator?.id,
+          isActive: zone.isActive
+      }));
       
       if(newZones.length > 0) {
         await fetchData('/zones', {
@@ -115,7 +121,7 @@ const DataProvider = (props: ComponentProps) => {
 
       if(updatedZones.length > 0) {
         await fetchData('/zones', {
-          method: 'PUT',
+          method: 'PATCH',
           body: JSON.stringify(updatedZones)
         });
       }
@@ -183,7 +189,7 @@ const DataProvider = (props: ComponentProps) => {
     });
   }
 
-  const deleteZone = async (zoneId: number) => {
+  const deleteZone = async (zoneId: string) => {
     const updatedZones = zoneData.data.current.filter((zone) => zone.id !== zoneId);
 
     try {
@@ -211,12 +217,13 @@ const DataProvider = (props: ComponentProps) => {
   }
 
   const addZone = () => {
-    const existingZone = zoneData.data.current.length > 0 ? zoneData.data.current[0] : undefined;
-
     const newZone: Zone = {
-      id: existingZone && existingZone.id <= 0 ? existingZone.id - 1 : -1,
+      id: 'new',
       name: '',
-      location: '',
+      region: '',
+      description: '',
+      isActive: false,
+      coordinator: null
     };
 
     setZoneData({ 

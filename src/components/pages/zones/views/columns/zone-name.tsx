@@ -10,7 +10,7 @@ export const ZoneName = (params: GridRenderCellParams<Zone, any, any, GridTreeNo
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
 
-    updateZone(params.id as number, { 
+    updateZone(params.id.toString(), { 
       ...params.row,
       name 
     });

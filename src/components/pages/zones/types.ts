@@ -1,9 +1,13 @@
 import { Modal } from "../common/types";
+import { User } from "../users/types";
 
 export type Zone = {
-  id: number;
+  id: string;
   name: string;
-  location: string;
+  description: string;
+  region: string;
+  isActive: boolean;
+  coordinator: User | null;
 }
 
 export type Zones = Zone[];
@@ -29,9 +33,9 @@ export type ZonesPage = {
 
 export type ZonesContextType = ZonesPage & {
   setZonesEditable: (isEditable: boolean) => void;
-  updateZone: (zoneId: number, updatedZone: Zone) => void;
+  updateZone: (zoneId: string, updatedZone: Zone) => void;
   saveZones: () => void;
   resetZones: () => void;
-  deleteZone: (zoneId: number) => void;
+  deleteZone: (zoneId: string) => void;
   addZone: () => void;
 };

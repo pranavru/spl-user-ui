@@ -5,10 +5,11 @@ import { ZoneContext } from '../data-provider';
 export const PageActions = () => {
   const { inEditMode, setZonesEditable, resetZones, saveZones, data, addZone } = React.useContext(ZoneContext);
 
+  console.log('zones', data);
   const isSaveEnabled = [
     data.current.length > 0,
     data.current !== data.saved,
-    data.current.every(zone => zone.name && zone.location)
+    data.current.every(zone => zone.name && zone.region)
   ].every(Boolean);
 
   return (

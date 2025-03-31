@@ -1,4 +1,4 @@
-const LOCAL_BASE_URL = 'http://localhost:8080/api';
+const LOCAL_BASE_URL = 'http://localhost:3001/api';
 const PROD_BASE_URL = 'https://api.example.com';
 const STAGING_BASE_URL = 'https://staging-api.example.com';
 
@@ -20,7 +20,7 @@ export const fetchData = async (path: string, options?: RequestInit) => {
       method: 'GET', 
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdGFsZWthciIsImlhdCI6MTczMjE0NzU3NCwiZXhwIjoxNzMyMjU1NTc0fQ.UEWeZrouD31AFId7SyWaxf11uNZSr_0g8sHBuEU4Gas`,
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWExNzBjY2VjZDlmMjc4NjMyYjRkYSIsImlhdCI6MTc0MzM5NDg1MSwiZXhwIjoxNzQzOTk5NjUxfQ.1JsPmlCf08LUxajFDXVhvYksyoPkPzMx0WYJO8xqBNc',
       },
       ...options
     });
