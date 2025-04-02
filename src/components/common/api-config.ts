@@ -1,3 +1,5 @@
+import { AUTH_TOKEN_KEY } from "../../auth/constants";
+
 const LOCAL_BASE_URL = 'http://localhost:3001/api';
 const PROD_BASE_URL = 'https://api.example.com';
 const STAGING_BASE_URL = 'https://staging-api.example.com';
@@ -20,7 +22,7 @@ export const fetchData = async (path: string, options?: RequestInit) => {
       method: 'GET', 
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWExNzBjY2VjZDlmMjc4NjMyYjRkYSIsImlhdCI6MTc0MzM5NDg1MSwiZXhwIjoxNzQzOTk5NjUxfQ.1JsPmlCf08LUxajFDXVhvYksyoPkPzMx0WYJO8xqBNc',
+        'Authorization': `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
       },
       ...options
     });

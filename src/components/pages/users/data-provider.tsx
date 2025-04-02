@@ -2,7 +2,7 @@ import React, { createContext } from 'react'
 import { People, Error as ErrorIcon } from '@mui/icons-material';
 import { FullPageLoader } from '../common/components/full-page-loader';
 import { initialUsersPage } from './literals';
-import { UsersPage, UsersPageContext } from './types';
+import { User, UsersPage, UsersPageContext } from './types';
 import { fetchData } from '../../common/api-config';
 import { FullPageError } from '../common/components/full-page-error';
 import { useToast } from '../common/components/toast-provider';
@@ -25,11 +25,14 @@ const DataProvider = (props: ComponentProps) => {
     });
 
     try {
-      const data = await fetchData('/users');
+      const response = await fetchData('/users');
       
       setUserData({ 
         ...userData, 
-        data, 
+        data: response.data.map((user: User) => ({
+          ...user,
+          isNew: false
+        })), 
         isLoading: false 
       });
     } catch (error) {

@@ -6,7 +6,7 @@ export const ActiveToggle = (params: GridCellParams<User, any, any, GridTreeNode
   return (
     <Box sx={{ display: 'flex', height: "100%", alignItems: 'center', justifyContent: 'center' }}>
       <Switch 
-        checked={params.row.isActive} 
+        checked={params.row.active} 
         disabled
         color='secondary' 
       />

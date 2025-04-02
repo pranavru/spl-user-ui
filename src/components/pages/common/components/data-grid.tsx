@@ -7,6 +7,7 @@ type ComponentProps = {
   columnsVisibility?: GridColumnVisibilityModel;
   editable?: 'row' | 'cell' | 'none';
   disableDoubleClick?: boolean;
+  getRowId?: (row: any) => string | number; // Optional function to get row id
 };
 
 export const CustomDataGrid = (props: ComponentProps) => {
@@ -26,6 +27,7 @@ export const CustomDataGrid = (props: ComponentProps) => {
         rows={props.rows}
         rowSelection={false}
         pageSizeOptions={[25, 50, 100]}
+        getRowId={props.getRowId}
         localeText={{
           toolbarColumns: "Display Columns",
           toolbarExport: "Export",

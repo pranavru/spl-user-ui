@@ -15,20 +15,17 @@ export const usersColumnVisibility = {
   email: true,
   address: true,
   dateOfBirth: true,
-  mandal: true,
   role: true,
   referenceContacts: true,
-  isActive: false,
+  active: true,
   createdAt: false,
-  updatedAt: false,
+  updatedAt: true,
   actions: true
 }
 
 export const addressFields = [
-  'addressLine1',
-  'addressLine2',
+  'street',
   'city',
   'state',
-  'postalCode',
-  'country'
+  'zipCode'
 ];

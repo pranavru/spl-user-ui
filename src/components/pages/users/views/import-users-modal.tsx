@@ -45,7 +45,7 @@ export const ImportUsersModal = (props: ComponentProps) => {
           
           headers.forEach((header, index) => {
             if (header === 'dateOfBirth' && row[index]) {
-              user[header] = new Date(row[index]);
+              user[header] = new Date(row[index]).toISOString();
 
               return;
             }

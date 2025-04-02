@@ -1,5 +1,4 @@
-import { Mandal } from "../mandals/types";
-import { Role, User, UserPayload } from "../users/types";
+import { User, UserPayload } from "../users/types";
 
 export type EditUserPage = {
   isLoading: boolean;
@@ -11,7 +10,7 @@ export type EditUserPage = {
 };
 
 export type EditUserPageContext = EditUserPage & {
-  updateUserData: (key: keyof Partial<User>, value: string | Role | Mandal | null) => void;
+  updateUserData: (key: keyof Partial<User>, value: string | null) => void;
   updateAddressData: (key: keyof Partial<User['address']>, value: string) => void;
   updateReferenceData: (key: keyof Partial<User['referenceContacts']>, value: User | null) => void;
   saveUser: (body: UserPayload) => Promise<void>;

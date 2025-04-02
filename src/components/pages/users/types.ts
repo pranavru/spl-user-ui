@@ -1,36 +1,24 @@
-import { Mandal } from "../mandals/types";
-
-export type Role = {
-  id: number;
-  role: string;
-  description: string;
-}
-
 export type ReferenceContacts = {
-  id: number;
-  primaryContact: User;
-  secondaryContact: User;
+  primary: User;
+  secondary: User;
+  additional: User[];
 }
 
 export type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  phoneNumber: string;
-  isActive: boolean;
-  role: Role | null;
-  mandal: Mandal | null;
+  phone: string;
+  active: boolean;
+  role: string;
   referenceContacts: ReferenceContacts | null;
   createdAt: string;
   updatedAt: string;
   address: { 
-    id: number;
-    addressLine1: string;
-    addressLine2: string;
+    street: string;
     city: string;
     state: string;
-    postalCode: string;
-    country: string;
+    zipCode: string;
   },
   dateOfBirth: string;
   isNew?: boolean;
@@ -48,30 +36,26 @@ export type UsersPageContext = UsersPage & {
   importedUsers: Users;
   setImportedUsers: React.Dispatch<React.SetStateAction<Users>>;
   saveUsersInBulk: () => Promise<void>;
-  deleteUser: (id: number) => void;
+  deleteUser: (id: string) => void;
 };
 
 export type UserPayload = {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  phoneNumber: string;
-  isActive: boolean;
-  roleId: Role['id'] | null;
-  mandalId: Mandal['id'] | null;
+  phone: string;
+  active: boolean;
+  role: string;
   referenceContacts: {
-    id: number;
-    primaryContactId: User['id'];
-    secondaryContactId: User['id'];
+    primary: User['id'];
+    secondary: User['id'];
+    additional: [User['id']];
   } | null;
   address: { 
-    id: number;
-    addressLine1: string;
-    addressLine2: string;
+    street: string;
     city: string;
     state: string;
-    postalCode: string;
-    country: string;
+    zipCode: string;
   },
   dateOfBirth: string;
 }

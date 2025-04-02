@@ -59,7 +59,7 @@ export const ReferenceContactsAutocomplete = (props: ComponentProps) => {
       id="reference-contact-dropdown"
       options={referenceContactsData.data}
       value={props.value}
-      getOptionLabel={(option) => `${option.name} (${option.mandal ? option.mandal.name: 'No Mandal'})`}
+      getOptionLabel={(option) => option.name}
       noOptionsText="No Users found"
       onChange={props.onChange}
       renderInput={(params) => (

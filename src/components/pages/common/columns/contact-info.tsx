@@ -7,7 +7,7 @@ export const ContactInfo = (params: GridCellParams<User, any, any, GridTreeNodeW
     <Typography 
       variant="body1"
     >
-      {params.row.phoneNumber}
+      {params.row.phone}
     </Typography>
     <Typography 
       variant="body2" 
