@@ -40,7 +40,7 @@ export const ImportUsersModal = (props: ComponentProps) => {
       const users = jsonData.slice(1)
         .map((row, rowIndex) => {
           const user: Partial<User> = {
-            id: -1 - rowIndex as number,
+            id: -1 - rowIndex,
           };
           
           headers.forEach((header, index) => {

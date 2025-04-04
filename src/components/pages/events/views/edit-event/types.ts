@@ -10,6 +10,7 @@ export type EditEventPageContext = {
   saveEvent: (body: EventPayload) => Promise<void>;
   resetEvent: () => void;
   updateEvent: (key: keyof Partial<Event>, value: string) => void;
+  markAttendance: (eventId: string, userId: string, attended: boolean, ride?: string) => Promise<Event>;
 };
 
 export type EventPayload = Partial<Event> &{

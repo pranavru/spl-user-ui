@@ -17,7 +17,7 @@ export const RowAction = (props: ComponentProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
   const { deleteEvent } = useEvents();
 
-  const isActionsDisabled = getTimeUsingISOString(props.params.row.startDate) < getTimeUsingISOString(new Date().toISOString());
+  const isActionsDisabled = getTimeUsingISOString(props.params.row.date) < getTimeUsingISOString(new Date().toISOString());
 
   return (
     <Box sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', gap: 1, height: '100%' }}>
@@ -25,7 +25,7 @@ export const RowAction = (props: ComponentProps) => {
         <Box component={'span'}>
           <IconButton 
             disabled={isActionsDisabled}
-            onClick={() => navigate(`/edit-event/${props.params.row.id}`)}
+            onClick={() => navigate(`/edit-event/${props.params.row._id}`)}
             size='small'
             sx={{ color: 'secondary.main' }}
 
@@ -55,7 +55,7 @@ export const RowAction = (props: ComponentProps) => {
         description="Are you sure you want to delete this event?"
         onConfirm={() => {
           setIsDeleteModalOpen(false);
-          deleteEvent(props.params.row.id);
+          deleteEvent(props.params.row._id);
         }}
         onCancel={() => {
           setIsDeleteModalOpen(false);

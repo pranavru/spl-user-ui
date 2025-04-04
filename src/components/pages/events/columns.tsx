@@ -7,7 +7,7 @@ import { RowAction } from "./views/actions";
 
 export const columns = [{
   type: 'string',
-  field: 'name', 
+  field: 'title', 
   headerName: 'Name', 
   flex: 1,
   renderCell: (params: GridRenderCellParams, _row: Event) => <ColumnTypography params={params} />
@@ -19,22 +19,16 @@ export const columns = [{
   renderCell: (params: GridRenderCellParams, _row: Event) => <ColumnTypography params={params} />
 }, {
   type: 'string',
-  field: 'startDate', 
-  headerName: 'Start Date', 
+  field: 'date',
+  headerName: 'Date',
   flex: 0.75,
   renderCell: (params: GridRenderCellParams, _row: Event) => <ColumnTypography params={params} value={formatDate(params.value as string)} />
 }, {
-  type: 'string',
-  field: 'endDate', 
-  headerName: 'End Date', 
-  flex: 0.75 ,
-  renderCell: (params: GridRenderCellParams, _row: Event) => <ColumnTypography params={params} value={formatDate(params.value as string)} />,
-}, {
-  type: 'string',
-  field: 'location',
-  headerName: 'Location', 
-  flex: 1 ,
-  renderCell: (params: GridRenderCellParams, _row: Event) => <ColumnTypography params={params} />
+  type: 'number',
+  field: 'attendees',
+  headerName: 'Attendees',
+  flex: 0.3,
+  renderCell: (params: GridRenderCellParams, _row: Event) => <ColumnTypography params={params} value={params.row.attendees?.length || 0} sx={{ justifyContent: 'flex-end' }} />
 }, {
   type: 'string',
   field: 'status', 

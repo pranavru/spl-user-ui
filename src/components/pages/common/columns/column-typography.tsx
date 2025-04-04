@@ -1,9 +1,10 @@
-import { Typography } from '@mui/material'
+import { SxProps, Typography } from '@mui/material'
 import { GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 
 interface ColumnTypographyProps {
   value?: string;
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>
+  sx?: SxProps
 }
 
 export const ColumnTypography = (props: ColumnTypographyProps) => {
@@ -14,7 +15,8 @@ export const ColumnTypography = (props: ColumnTypographyProps) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        height: '100%'
+        height: '100%',
+        ...props.sx
       }}
     >
       {props.value || props.params.value}

@@ -5,7 +5,7 @@ import { PageHeader } from '../../../../common/components/page-header';
 import { EventDetails } from './event-details';
 
 export const EventContainer = () => {
-  const { data: { current: currentData }, updateEvent } = useEditEvent();
+  const { data: { current: currentData }, updateEvent, markAttendance } = useEditEvent();
 
   return (
     <Container maxWidth="xl" sx={{ mt: 2 }}>
@@ -17,7 +17,8 @@ export const EventContainer = () => {
         </PageHeader>
         <EventDetails 
           currentData={currentData} 
-          updateEvent={updateEvent} 
+          updateEvent={updateEvent}
+          markAttendance={markAttendance}
         />
       </Container>
   )

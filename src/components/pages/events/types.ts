@@ -1,13 +1,19 @@
+export type Attendance = {
+  userId: string;
+  attended: boolean;
+  ride?: string;
+};
+
 export type Event = {
-  id: number;
-  name: string;
+  _id: string;
+  title: string;
   description: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  status: 'active' | 'inactive' | 'completed' | 'canceled' | 'upcoming';
-  createdDate: string;
-  updatedDate: string | null;
+  date: string;
+  mandal: string;
+  status: 'ongoing' | 'inactive' | 'completed' | 'cancelled' | 'upcoming';
+  attendees: Attendance[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Events = Event[];
@@ -19,5 +25,8 @@ export type EventsContextProps = {
   data: {
     events: Events;
   };
-  deleteEvent: (id: Event['id']) => void;
+  createEvent: (event: Omit<Event, '_id' | 'createdAt' | 'updatedAt' | 'attendees'>) => Promise<Event>;
+  updateEvent: (id: string, event: Partial<Event>) => Promise<Event>;
+  deleteEvent: (id: string) => Promise<void>;
+  markAttendance: (eventId: string, userId: string, attended: boolean, ride?: string) => Promise<Event>;
 };

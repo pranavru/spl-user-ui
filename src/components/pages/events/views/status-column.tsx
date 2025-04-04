@@ -8,10 +8,6 @@ interface StatusColumnProps {
 
 export const StatusColumn = (props: StatusColumnProps) => {
   const content = {
-    active: { 
-      color: 'success',
-      label: 'Active'
-    },
     inactive: {
       color: 'info',
       label: 'Inactive'
@@ -20,13 +16,17 @@ export const StatusColumn = (props: StatusColumnProps) => {
       color: 'primary',
       label: 'Completed'
     },
-    canceled: {
+    cancelled: {
       color: 'warning',
-      label: 'Canceled'
+      label: 'Cancelled'
     },
     upcoming: {
       color: 'secondary',
       label: 'Upcoming'
+    },
+    ongoing: {
+      color: 'success',
+      label: 'Ongoing'
     }
   }
 
@@ -34,8 +34,8 @@ export const StatusColumn = (props: StatusColumnProps) => {
     <Box sx={{ display: 'flex', alignItems: 'center', height: '30px' }}>
       <Chip
         size='small'
-        label={content[props.status].label}
-        color={content[props.status].color as 'default' | 'success' | 'warning' | 'info' | 'error' | 'secondary' | 'primary'}
+        label={content[props.status]?.label}
+        color={content[props.status]?.color as 'default' | 'success' | 'warning' | 'info' | 'error' | 'secondary' | 'primary'}
       />
     </Box>
   );

@@ -1,11 +1,10 @@
 import { Save, UploadFile } from "@mui/icons-material"
 import { Box, Button } from "@mui/material"
 import { useContext, useState } from "react";
-import { ImportUsersModal } from "./import-users-modal";
 import { UserContext } from "../data-provider";
 
 export const PageActions = () => {
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
   const { importedUsers, saveUsersInBulk } = useContext(UserContext);
 
   const handleClickOpen = () => {
@@ -36,7 +35,7 @@ export const PageActions = () => {
           {'Save'}
         </Button>
       ): null}
-      <ImportUsersModal open={open} setOpen={setOpen} />
+      {/* <ImportUsersModal open={open} setOpen={setOpen} /> */}
     </Box>
   )
 }
